@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Applivation météo</title>
+    <meta name="name" content="weather application" />
+    <meta name="description" content="application météo en temps réel" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" type="module"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <form>
+          <h1>Météo</h1>
+          <div>
+            <input
+              type="text"
+              id="input-search"
+              placeholder="Rechercher une ville..."
+            />
+            <button type="submit" class="button-search">Rechercher</button>
+          </div>
+        </form>
+      </header>
+
+      <main>
+        <section class="current-weather-section">
+          <div class="current">
+            <h2>Météo actuelle</h2>
+            <img class="img-position" src="./assets/epingle.png" alt="" />
+            <h3 class="city"></h3>
+          </div>
+          <div class="current-weather">
+            <div class="temp-feel">
+              <div class="temp"></div>
+              <div class="feel"></div>
+            </div>
+            <div class="weather">
+              <div class="icon"></div>
+              <div class="weather-city"></div>
+            </div>
+            <div class="min-max-temp">
+              <div class="minmax-icon"></div>
+              <div class="minmax-data"></div>
+            </div>
+            <div class="humidity">
+              <div class="humidity-icon"></div>
+              <div class="humidity-data"></div>
+            </div>
+            <div class="wind-speed-direction">
+              <div class="wind-icon"></div>
+              <div class="wind-speed"></div>
+            </div>
+            <div class="pressure">
+              <div class="pressure-icon"></div>
+              <div class="pressure-data"></div>
+            </div>
+            <div class="visibility">
+              <div class="visibility-icon"></div>
+              <div class="visibility-data"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="weather-forecast section">
+          <h2>Prévisions</h2>
+          <h3></h3>
+          <div class="container-box">
+            <div class="box1">
+              <div class="date1"></div>
+              <div class="icon1"></div>
+              <div class="temp1"></div>
+              <div class="min-max1"></div>
+              <div class="humidity1"></div>
+            </div>
+            <div class="box2">
+              <div class="date2"></div>
+              <div class="icon2"></div>
+              <div class="temp2"></div>
+              <div class="min-max2"></div>
+              <div class="humidity2"></div>
+            </div>
+            <div class="box3">
+              <div class="date3"></div>
+              <div class="icon3"></div>
+              <div class="temp3"></div>
+              <div class="min-max3"></div>
+              <div class="humidity3"></div>
+            </div>
+            <div class="box4">
+              <div class="date4"></div>
+              <div class="icon4"></div>
+              <div class="temp4"></div>
+              <div class="min-max4"></div>
+              <div class="humidity4"></div>
+            </div>
+            <div class="box5">
+              <div class="date5"></div>
+              <div class="icon5"></div>
+              <div class="temp5"></div>
+              <div class="min-max5"></div>
+              <div class="humidity5"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="air-quality section">
+          <h2>Pollution de l'air</h2>
+          <h3 class="air">Qualité de l'air</h3>
+          <div>
+            <p class="indice"></p>
+            <p class="co"></p>
+            <p class="no"></p>
+            <p class="no2"></p>
+            <p class="o3"></p>
+            <p class="so2"></p>
+            <p class="pm2"></p>
+            <p class="pm10"></p>
+            <p class="nh3"></p>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>© 2024 Weather Dashboard</p>
+      </footer>
+    </div>
+  </body>
+</html>
