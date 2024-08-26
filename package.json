@@ -1,9 +1,0 @@
-{
-    "name": "appli-meteo",
-    "version": "1.0.0",
-    "description": "Une application météo avec données métérologique en temps réel",
-    "type": "module",
-    "scripts": {
-        "start": "node /main.js"
-    }
-}
