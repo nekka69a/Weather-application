@@ -3,13 +3,12 @@ import { apikey } from "./currentLocation.js";
 async function apiCallAir(lat, lon) {
   let lat = latitude;
   let lon = longitude;
-  // Utiliser la géolocalisation pour obtenir les coordonnées
+  // Géolocation
   const getUserGeoLocation = async () => {
-    const { geolocation } = navigator;
-    if (geolocation) {
+    if (navigator.geolocation) {
       try {
         const position = await new Promise((resolve, reject) => {
-          geolocation.getCurrentPosition(resolve, reject);
+          navigator.geolocation.getCurrentPosition(resolve, reject);
         });
         lat = position.coords.latitude;
         lon = position.coords.longitude;
