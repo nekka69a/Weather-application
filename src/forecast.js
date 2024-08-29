@@ -10,7 +10,6 @@ export async function apiCallForecast() {
     try {
       const response = await fetch(url);
       const dataForecast = await response.json();
-      console.log("DataForecast:", dataForecast);
 
       let count;
 
