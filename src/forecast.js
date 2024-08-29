@@ -1,4 +1,4 @@
-import { apikey } from "./currentLocation.js";
+import { apikey } from "./utils.js";
 
 export async function apiCallForecast() {
   document.querySelector("form").addEventListener("submit", async (evt) => {
@@ -9,43 +9,48 @@ export async function apiCallForecast() {
 
     try {
       const response = await fetch(url);
-      const data = await response.json();
-      console.log(data);
+      const dataForecast = await response.json();
+      console.log("DataForecast:", dataForecast);
 
-      let count = 1;
+      let count;
 
       //   ============= DATE ===========
-      for (let i = 0; i < data.list.length; i += 8) {
-        const date = data.list[i].dt_txt.split(" ")[0];
+      count = 1;
+      for (let i = 0; i < dataForecast.list.length; i += 8) {
+        const date = dataForecast.list[i].dt_txt.split(" ")[0];
         document.querySelector(`.date${count}`).innerHTML = ` ${date}`;
         count += 1;
       }
 
       //   ============= ICON ===========
-      for (let i = 0; i < data.list.length; i += 8) {
+      count = 1;
+      for (let i = 0; i < dataForecast.list.length; i += 8) {
         document.querySelector(`.icon${count}`).innerHTML =
-          `<img class="weather-icon" src="https://openweathermap.org/img/wn/${data.list[i].weather[0].icon}@2x.png" alt="" />`;
+          `<img class="weather-icon" src="https://openweathermap.org/img/wn/${dataForecast.list[i].weather[0].icon}@2x.png" alt="" />`;
         count += 1;
       }
 
       //   ========= TEMPERATURE ========
-      for (let i = 0; i < data.list.length; i += 8) {
+      count = 1;
+      for (let i = 0; i < dataForecast.list.length; i += 8) {
         document.querySelector(`.temp${count}`).innerHTML =
-          ` ${data.list[i].main.temp.toFixed(1)}°C`;
+          ` ${dataForecast.list[i].main.temp.toFixed(1)}°C`;
         count += 1;
       }
 
       //   ============ MIN-MAX ==========
-      for (let i = 0; i < data.list.length; i += 8) {
+      count = 1;
+      for (let i = 0; i < dataForecast.list.length; i += 8) {
         document.querySelector(`.min-max${count}`).innerHTML =
-          ` Min: ${data.list[i].main.temp_min.toFixed(1)}°C - Max: ${data.list[i].main.temp_max.toFixed(1)}°C`;
+          ` Min: ${dataForecast.list[i].main.temp_min.toFixed(1)}°C - Max: ${dataForecast.list[i].main.temp_max.toFixed(1)}°C`;
         count += 1;
       }
 
       //   ============= HUMIDITY =========
-      for (let i = 0; i < data.list.length; i += 8) {
+      count = 1;
+      for (let i = 0; i < dataForecast.list.length; i += 8) {
         document.querySelector(`.humidity${count}`).innerHTML =
-          ` ${data.list[i].main.humidity} %`;
+          ` ${dataForecast.list[i].main.humidity} %`;
         count += 1;
       }
     } catch (err) {
