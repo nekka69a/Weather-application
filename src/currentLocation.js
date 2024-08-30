@@ -19,6 +19,9 @@ export function apiCallLocationAndAirQuality() {
         throw new Error(`Erreur ${response.statusText}`);
       }
       const dataWeather = await response.json();
+      if (dataWeather.length === 0) {
+        throw new Error(`Erreur ${response.statusText}`);
+      }
 
       // Mise à jour du Dom avec les données api
       updateCurrentWeatherData(ville, dataWeather);
@@ -43,6 +46,9 @@ async function apiCallAir(ville) {
       throw new Error(`Erreur ${response.statusText}`);
     }
     const dataAir = await response.json();
+    if (dataAir.length === 0) {
+      throw new Error(`Erreur ${response.statusText}`);
+    }
 
     // Mise à jour du DOM
     updateAirQualityData(dataAir);
