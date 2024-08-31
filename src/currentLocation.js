@@ -5,7 +5,7 @@ import {
   apikey,
 } from "./utils.js";
 
-export function apiCallLocationAndAirQuality() {
+export function getTemperatureAndAirQualityData() {
   document.querySelector("form").addEventListener("submit", async (evt) => {
     evt.preventDefault();
     const ville = document.querySelector("#input-search").value;
