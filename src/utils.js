@@ -70,3 +70,10 @@ export const updateAirQualityData = (dataAir) => {
   document.querySelector(".nh3").innerHTML =
     `NH3 : ${dataAir.list[0].components.nh3} µg/m³`;
 };
+
+export function clearCity() {
+  const input = document.querySelector("#input-search");
+  input.addEventListener("click", () => {
+    document.querySelector(".city").innerHTML = "";
+  });
+}

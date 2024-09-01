@@ -1,9 +1,11 @@
-import { apiCallLocationAndAirQuality } from "./currentLocation.js";
-import { apiCallForecast } from "./forecast.js";
+import { getTemperatureAndAirQualityData } from "./currentLocation.js";
+import { getForecastData } from "./forecast.js";
+import { clearCity } from "./utils.js";
 
 function main() {
-  apiCallLocationAndAirQuality();
-  apiCallForecast();
+  getTemperatureAndAirQualityData();
+  getForecastData();
+  clearCity();
 }
 
 main();
