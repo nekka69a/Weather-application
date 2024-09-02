@@ -182,6 +182,35 @@ footer {
     text-align: center;
 }
 
+/* Loader style */
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader {
+    border: 16px solid #EAE6F2;
+    border-top: #6726eb;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation-name: spin 2s linear infinite;
+}
+
+.data-loader {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-wrap: wrap;
+   gap: 20px; 
+}
+
 /* Responsive */
 
 

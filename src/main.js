@@ -1,11 +1,5 @@
-import { getTemperatureAndAirQualityData } from "./currentLocation.js";
-import { getForecastData } from "./forecast.js";
-import { clearCity } from "./utils.js";
+import { setupEventListeners } from "./ui.js";
 
-function main() {
-  getTemperatureAndAirQualityData();
-  getForecastData();
-  clearCity();
-}
-
+const main = async () => {};
+setupEventListeners();
 main();

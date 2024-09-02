@@ -1,23 +1,117 @@
-export const apikey = "01aa6eb928bd25948a3cd005133e5e48";
+import { getUserGeoLocation } from "./api.js";
 
-export async function getUserGeoLocation(ville) {
-  const urlLocation = `http://api.openweathermap.org/geo/1.0/direct?q=${ville}&appid=${apikey}`;
-  const responseLocation = await fetch(urlLocation);
-  if (!responseLocation.ok) {
-    throw new Error(`Network response was not ok 
-        ${responseLocation.statusText}`);
-  }
-  const dataLocation = await responseLocation.json();
-  if (dataLocation.length === 0) {
-    throw new Error("Ville non trouvée");
-  }
-  const { lat } = dataLocation[0];
-  const { lon } = dataLocation[0];
-  return { lat, lon };
-}
+/**
+ * Set loader for weather Details
+ */
 
-export const updateCurrentWeatherData = (ville, dataWeather) => {
-  document.querySelector(".city").innerHTML = `${ville}`;
+const setWeatherLoader = (isLoading) => {
+  const currentWeatherDiv = document.querySelector(".currentweather");
+
+  if (isLoading) {
+    currentWeatherDiv.innerHTML = `<div class="loader"></div>`;
+    return;
+  }
+
+  currentWeatherDiv.innerHTML = "";
+};
+
+/**
+ * Set loader for forecast Details
+ */
+
+const setForecastLoader = (isLoading) => {
+  const currentWeatherDiv = document.querySelector(".container-box");
+
+  if (isLoading) {
+    currentWeatherDiv.innerHTML = `<div class="loader"></div>`;
+    return;
+  }
+
+  currentWeatherDiv.innerHTML = "";
+};
+
+/**
+ * Set loader for air pollution Details
+ */
+
+const setPollutionAirLoader = (isLoading) => {
+  const currentWeatherDiv = document.querySelector(".air-quality-data");
+
+  if (isLoading) {
+    currentWeatherDiv.innerHTML = `<div class="loader"></div>`;
+    return;
+  }
+
+  currentWeatherDiv.innerHTML = "";
+};
+
+/**
+ *Initialize event listeners
+ @returns {void}
+ */
+
+const setupEventListeners = () => {
+  const searchInput = document.getElementById("input-search");
+  const searchButton = document.querySelector(".button-search");
+
+  /**
+   *Function that we handle event click for SearchButton
+   */
+
+  const handleClickSearchButton = (event) => {
+    event.preventDefault();
+
+    const city = searchInput.value.trim();
+
+    if (city) {
+      fetchWeatherData(city);
+    }
+  };
+
+  /**
+   *Function that we handle event keypress for SearchInput
+   */
+
+  const handleKeyPressSearchInput = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const city = searchInput.value.trim();
+
+      if (city) {
+        fetchWeatherData(city);
+      }
+    }
+  };
+
+  searchButton.addEventListener("click", handleClickSearchButton);
+  searchInput.addEventListener("keypress", handleKeyPressSearchInput);
+};
+
+/**
+ * 
+@param {string} - City name
+@returns {void}
+ */
+
+const fetchWeatherData = async (city) => {
+  setWeatherLoader(true);
+  setForecastLoader(true);
+  setPollutionAirLoader(true);
+
+  const geoCode = await getUserGeoLocation(city);
+
+  if (!Object.keys(geoCode || {}).length) {
+    // affichera une erreur
+  }
+
+  const { lat, lon } = geoCode;
+  console.log(`lat: ${lat} | lon: ${lon}`);
+
+  //  appeler toutes les fonctions pour récupérer la data;
+};
+
+const updateCurrentWeatherData = (city, dataWeather) => {
+  document.querySelector(".city").innerHTML = `${city}`;
   document.querySelector(".temp").innerHTML =
     ` ${Math.round(dataWeather.main.temp)}°C`;
   document.querySelector(".feel").innerHTML =
@@ -50,7 +144,7 @@ export const updateCurrentWeatherData = (ville, dataWeather) => {
   } Km`;
 };
 
-export const updateAirQualityData = (dataAir) => {
+const updateAirQualityData = (dataAir) => {
   document.querySelector(".indice").innerHTML =
     `Indice de qualité de l'air : ${dataAir.list[0].main.aqi}`;
   document.querySelector(".co").innerHTML =
@@ -71,9 +165,16 @@ export const updateAirQualityData = (dataAir) => {
     `NH3 : ${dataAir.list[0].components.nh3} µg/m³`;
 };
 
-export function clearCity() {
+function clearCity() {
   const input = document.querySelector("#input-search");
   input.addEventListener("click", () => {
     document.querySelector(".city").innerHTML = "";
   });
 }
+
+export {
+  setupEventListeners,
+  updateCurrentWeatherData,
+  updateAirQualityData,
+  clearCity,
+};
