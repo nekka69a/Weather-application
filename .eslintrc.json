@@ -6,10 +6,10 @@
     },
     "rules": {
     "no-use-before-define": ["error", {
-        "functions": false,
-        "classes": true,
-        "variables": true,
-        "allowNamedExports": false
+        // "functions": false,
+        // "classes": true,
+        // "variables": true,
+        // "allowNamedExports": false
         }],
     "no-console": 0,
     "prettier/prettier": ["error"],

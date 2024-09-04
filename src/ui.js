@@ -1,4 +1,5 @@
 import {
+  fetchWeatherByGeocode,
   fetchAirPollutionByGeocode,
   fetchWeatherForecastByGeocode,
   getUserGeoLocation,
@@ -9,7 +10,7 @@ import {
  */
 
 const setWeatherLoader = (isLoading) => {
-  const currentWeatherDiv = document.querySelector(".currentweather");
+  const currentWeatherDiv = document.querySelector(".current-weather");
 
   if (isLoading) {
     currentWeatherDiv.innerHTML = `<div class="loader"></div>`;
@@ -79,6 +80,7 @@ const setupEventListeners = () => {
   const handleKeyPressSearchInput = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
+
       const city = searchInput.value.trim();
 
       if (city) {

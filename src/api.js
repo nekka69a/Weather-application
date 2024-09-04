@@ -8,25 +8,32 @@ const apikey = "01aa6eb928bd25948a3cd005133e5e48";
  */
 
 const getUserGeoLocation = async (city) => {
-  const urlLocation = `${API_BASE_URL}/geo/1.0/direct?q=${city}&appid=${apikey}`;
+  const url = `${API_BASE_URL}/geo/1.0/direct?q=${city}&appid=${apikey}`;
 
   try {
-    const responseLocation = await fetch(urlLocation);
-    if (!responseLocation.ok) {
+    const response = await fetch(url);
+    if (!response.ok) {
       throw new Error(`Network response was not ok 
         ${responseLocation.statusText}`);
     }
 
-    const dataLocation = await responseLocation.json();
+    const data = await response.json();
 
-    if (dataLocation.length === 0) {
-      throw new Error("Ville non trouvée");
+    console.log("data: ", data);
+
+    if (!data.length) {
+      return null;
     }
 
-    const { lat } = dataLocation[0];
-    const { lon } = dataLocation[0];
+    const firstElement = data[0];
+    const { lat, lon } = firstElement;
+    console.log(lat);
+    console.log(lon);
 
-    return { lat, lon };
+    return {
+      lat,
+      lon,
+    };
   } catch (err) {
     console.log(err);
     return null;
@@ -41,17 +48,19 @@ const getUserGeoLocation = async (city) => {
  */
 
 const fetchWeatherByGeocode = async (lat, lon) => {
-  const url = `${API_BASE_URL}/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apikey}&units=metric&lang=fr`;
+  const url = `${API_BASE_URL}/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apikey}`;
 
   try {
     const response = await fetch(url);
+
     if (!response.ok) {
       throw new Error(`Erreur ${response.statusText}`);
     }
+
     const dataWeather = await response.json();
+    console.log("weather: ", dataWeather);
     return dataWeather;
   } catch (err) {
-    document.querySelector(".error").innerHTML = "Erreur: Ville non trouvée";
     console.error(`Erreur : ${err}`);
     return null;
   }
@@ -65,12 +74,16 @@ const fetchWeatherByGeocode = async (lat, lon) => {
  */
 
 const fetchWeatherForecastByGeocode = async (lat, lon) => {
-  const url = `${API_BASE_URL}/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apikey}&units=metric&lang=fr`;
+  const url = `${API_BASE_URL}/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apikey}`;
 
   try {
     const response = await fetch(url);
-    const dataForecast = await response.json();
+    if (!response.ok) {
+      throw new Error(`Erreur ${response.statusText}`);
+    }
 
+    const dataForecast = await response.json();
+    console.log("forecast: ", dataForecast);
     return dataForecast;
   } catch (err) {
     console.error(`Erreur : ${err}`);
@@ -94,10 +107,11 @@ const fetchAirPollutionByGeocode = async (lat, lon) => {
       throw new Error(`Erreur ${response.statusText}`);
     }
     const dataAir = await response.json();
+    console.log("dataAir: ", dataAir);
     return dataAir;
   } catch (err) {
     console.error(`Erreur : ${err}`);
-    return null;
+    return;
   }
 };
 
