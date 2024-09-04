@@ -27,6 +27,7 @@ const getUserGeoLocation = async (city) => {
 
     const firstElement = data[0];
     const { lat, lon } = firstElement;
+
     console.log(lat);
     console.log(lon);
 

@@ -9,9 +9,14 @@ import {
  * @param {Object} weatherData -- The weather data object
  */
 const displayWeatherDetails = (weatherDetails) => {
+  if (!weatherDetails || !weatherDetails.main || !weatherDetails.main.temp) {
+    console.error("Weather data is missing or incomplete");
+    return;
+  }
+
   document.querySelector(".city").innerHTML = `${weatherDetails.name}`;
   document.querySelector(".temp").innerHTML =
-    ` ${Math.round(weatherDetails.main.temp)}°C`;
+    `${Math.round(weatherDetails.main.temp)}°C`;
   document.querySelector(".feel").innerHTML =
     `Ressenti: ${Math.round(weatherDetails.main.feels_like)}°C`;
   document.querySelector(".icon").innerHTML =

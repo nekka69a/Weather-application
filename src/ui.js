@@ -5,6 +5,8 @@ import {
   getUserGeoLocation,
 } from "./api.js";
 
+import updateUI from "./ui-helpers.js";
+
 /**
  * Set loader for weather Details
  */
@@ -100,19 +102,20 @@ const setupEventListeners = () => {
  */
 
 const fetchWeatherData = async (city) => {
+  console.log("passage", city);
   setWeatherLoader(true);
   setForecastLoader(true);
   setPollutionAirLoader(true);
 
   const geoCode = await getUserGeoLocation(city);
-
+  console.log("geocode:", geoCode);
   if (!Object.keys(geoCode || {}).length) {
     // affichera une erreur
   }
 
   const { lat, lon } = geoCode;
 
-  const weatherDataPromise = fetchWeatherData(lat, lon);
+  const weatherDataPromise = fetchWeatherByGeocode(lat, lon);
   const weatherForecastDataPromise = fetchWeatherForecastByGeocode(lat, lon);
   const airPollutionDataPromise = fetchAirPollutionByGeocode(lat, lon);
 
