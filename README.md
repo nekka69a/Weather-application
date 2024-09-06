@@ -10,7 +10,7 @@ Welcome to the Weather App repository! This application allows you to view curre
 
 ## Screenshots
 
-![Weather App Screenshot](./weatherAppCapture.png)
+![Weather App Screenshot](./weatherAppCapture1.png)
 ![Weather App Screenshot](./weatherAppCapture2.png)
 
 ## Installation
