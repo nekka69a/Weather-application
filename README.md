@@ -17,12 +17,12 @@ Welcome to the Weather App repository! This application allows you to view curre
 To install and run the application locally, follow these steps:
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/weather-app.git
+
+       git clone https://github.com/your-username/weather-app.git
 
 Navigate to the project directory:
    
-         cd weather-app
+       cd weather-app
 
 Open the index.html file in your web browser.
 
