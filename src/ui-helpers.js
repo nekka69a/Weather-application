@@ -52,7 +52,6 @@ const handleError = (message) => {
   const errorElementDiv = document.getElementById("error");
   errorElementDiv.textContent = message;
   errorElementDiv.style.display = "block";
-  console.log(message);
 };
 
 /**

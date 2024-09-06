@@ -101,6 +101,20 @@ const setupEventListeners = () => {
     }
   };
 
+  /**
+   *Function that we clear the input search on click
+   */
+
+  const clearInput = () => {
+    const input = document.getElementById("input-search");
+
+    input.addEventListener("focus", () => {
+      input.value = "";
+    });
+  };
+
+  clearInput();
+
   searchButton.addEventListener("click", handleClickSearchButton);
   searchInput.addEventListener("keypress", handleKeyPressSearchInput);
 };
