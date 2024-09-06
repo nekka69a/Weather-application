@@ -1,7 +1,9 @@
-import { setupEventListeners } from "./ui.js";
+import init from "./ui.js";
 
-const main = async () => {
-  setupEventListeners();
+const startApp = async () => {
+  init();
 };
 
-main();
+// Une fois que le DOM est complètement charché, démarre l'appli
+
+document.addEventListener("DOMContentLoaded", startApp);

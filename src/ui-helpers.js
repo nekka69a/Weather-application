@@ -1,8 +1,70 @@
-import {
-  setWeatherLoader,
-  setForecastLoader,
-  setPollutionAirLoader,
-} from "./ui.js";
+/**
+ * Set loader for weather Details
+ */
+
+const setWeatherLoader = (isLoading) => {
+  const currentWeatherDiv = document.querySelector(".current-weather");
+
+  if (isLoading) {
+    currentWeatherDiv.innerHTML = `<div class="loader"></div>`;
+    return;
+  }
+
+  currentWeatherDiv.innerHTML = "";
+};
+
+/**
+ * Set loader for forecast Details
+ */
+
+const setForecastLoader = (isLoading) => {
+  const currentWeatherDiv = document.querySelector(".container-box");
+
+  if (isLoading) {
+    currentWeatherDiv.innerHTML = `<div class="loader"></div>`;
+    return;
+  }
+
+  currentWeatherDiv.innerHTML = "";
+};
+
+/**
+ * Set loader for air pollution Details
+ */
+
+const setPollutionAirLoader = (isLoading) => {
+  const currentWeatherDiv = document.querySelector(".air-quality-data");
+
+  if (isLoading) {
+    currentWeatherDiv.innerHTML = `<div class="loader"></div>`;
+    return;
+  }
+
+  currentWeatherDiv.innerHTML = "";
+};
+
+/**
+ * Handle errors during API fetch or processing
+ * @param {string} message - Error message to display
+ */
+
+const handleError = (message) => {
+  const errorElementDiv = document.getElementById("error");
+  errorElementDiv.textContent = message;
+  errorElementDiv.style.display = "block";
+  console.log(message);
+};
+
+/**
+ * Reset errors shown in UI
+ display
+ */
+
+const resetError = () => {
+  const errorElementDiv = document.getElementById("error");
+  errorElementDiv.textContent = "";
+  errorElementDiv.style.display = "none";
+};
 
 /** *
  * Displays weather data
@@ -56,14 +118,12 @@ const displayWeatherDetails = (weatherData) => {
 
 const displayForecast = (forecastData) => {
   const containerBoxDiv = document.querySelector(".container-box");
-  console.log("f-d", forecastData);
 
   // Clear the previous data
   containerBoxDiv.innerHTML = "";
 
   const weatherForecastHTML = `
-
-            <div class="box1">
+              <div class="box1">
               <div class="date1"></div>
               <div class="icon1"></div>
               <div class="temp1"></div>
@@ -133,7 +193,6 @@ const displayForecast = (forecastData) => {
 
 const displayAirPollution = (airPollutionData) => {
   const airQualityDiv = document.querySelector(".air-quality-data");
-  console.log("apd", airPollutionData);
 
   // Clear the previous data
   airQualityDiv.innerHTML = "";
@@ -161,34 +220,22 @@ const displayAirPollution = (airPollutionData) => {
  */
 
 const displayWeather = (weatherData, forecastData, airPollutionData) => {
-  displayWeatherDetails(weatherData);
-  displayForecast(forecastData);
-  displayAirPollution(airPollutionData);
-};
-
-/**
- * Updates the UI width the fetched weather, forecast and air pollution data
- * @param {Object} weatherData -- The weather data object
- * @param {Object} forecastData -- The forecast data object
- * @param {Object} airPollutionData -- The air pollution data object
- * @returns {void}
- */
-
-const updateUI = (weatherData, forecastData, airPollutionData) => {
-  if (!weatherData || !forecastData || !airPollutionData) {
-    console.log("Il manque un jeu de données");
-    return;
+  if (Object.keys(weatherData || {}).length) {
+    displayWeatherDetails(weatherData);
   }
-
-  console.log("Weather Data:", weatherData);
-  console.log("Forecast Data:", forecastData);
-  console.log("Air Pollution Data:", airPollutionData);
-
-  setWeatherLoader(false);
-  setForecastLoader(false);
-  setPollutionAirLoader(false);
-
-  displayWeather(weatherData, forecastData, airPollutionData);
+  if (Object.keys(forecastData || {}).length) {
+    displayForecast(forecastData);
+  }
+  if (Object.keys(airPollutionData || {}).length) {
+    displayAirPollution(airPollutionData);
+  }
 };
 
-export default updateUI;
+export {
+  displayWeather,
+  handleError,
+  resetError,
+  setWeatherLoader,
+  setForecastLoader,
+  setPollutionAirLoader,
+};

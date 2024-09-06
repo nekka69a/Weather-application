@@ -31,8 +31,8 @@ header {
 .section, .current-weather-section {
     
     background-color: #1D1C1F;
-    height: 350px;
-    padding: 5px 10px;
+    min-height: 170px;
+    padding: 10px 10px 20px 10px;
     margin-top: 15px;
     border-radius: 10px;
     
@@ -151,15 +151,13 @@ button {
 }
 
 .air-quality {
-    min-height: 50vh;
+    min-height: 100px
 }
 
 .air-quality-data{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 50px;
-
 }
 
 .indice, .co, .no, .no2, .o3, .so2, .pm2, .pm10, .nh3 {
@@ -206,13 +204,20 @@ footer {
    gap: 20px; 
 }
 
-.error {
+/* Error style */
+
+#error {
+    background-color: #6726eb;
+    color: whitesmoke;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px 0;
+    text-align: center;
     display: none;
 }
 
+
 /* Responsive */
-
-
 
 @media (max-width: 640px) {
 
@@ -225,7 +230,7 @@ footer {
     }
 
     .current-weather-section {
-        height: 180vh;
+        min-height: 30vh;
         justify-content: center;
         align-items: center;
         gap: 10px;
@@ -234,12 +239,12 @@ footer {
 
     .weather, .temp-feel, .humidity, .min-max-temp, .wind-speed-direction, .pressure, .visibility {
         min-width: max-content;
-        height: 110px;
+        min-height: 30px;
         font-size: x-small;
     }
 
     .weather-forecast {
-        height: 170vh;
+        min-height: 30vh;
         gap: 5px;
     }
 
@@ -249,7 +254,7 @@ footer {
     }
 
     .air-quality {
-        height: 110vh;  
+        min-height: 30vh;  
     }
 
     .air-quality-data {
@@ -279,7 +284,7 @@ footer {
 @media all and (max-width: 1320px) {
 
     .current-weather-section {
-        min-height: 90vh;
+        min-height: 40vh;
     }
 
     .current-weather {
@@ -290,7 +295,7 @@ footer {
     }
 
     .weather-forecast {
-        min-height: 100vh;
+        min-height: 40vh;
     }
 
     .container-box {
@@ -301,6 +306,6 @@ footer {
     }
 
     .air-quality {
-        min-height: 80vh;  
+        min-height: 40vh;  
     }
 }

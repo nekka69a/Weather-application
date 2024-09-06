@@ -4,52 +4,62 @@ import {
   fetchWeatherForecastByGeocode,
   getUserGeoLocation,
 } from "./api.js";
-
-import updateUI from "./ui-helpers.js";
+import {
+  resetError,
+  displayWeather,
+  handleError,
+  setWeatherLoader,
+  setForecastLoader,
+  setPollutionAirLoader,
+} from "./ui-helpers.js";
 
 /**
- * Set loader for weather Details
+ * Updates the UI width the fetched weather, forecast and air pollution data
+ * @param {Object} weatherData -- The weather data object
+ * @param {Object} forecastData -- The forecast data object
+ * @param {Object} airPollutionData -- The air pollution data object
+ * @returns {void}
  */
 
-const setWeatherLoader = (isLoading) => {
-  const currentWeatherDiv = document.querySelector(".current-weather");
+const updateUI = (weatherData, forecastData, airPollutionData) => {
+  setWeatherLoader(false);
+  setForecastLoader(false);
+  setPollutionAirLoader(false);
 
-  if (isLoading) {
-    currentWeatherDiv.innerHTML = `<div class="loader"></div>`;
-    return;
-  }
-
-  currentWeatherDiv.innerHTML = "";
+  displayWeather(weatherData, forecastData, airPollutionData);
 };
 
 /**
- * Set loader for forecast Details
+ * Fetch Weather data
+@param {string} - City name
+@returns {void}
  */
 
-const setForecastLoader = (isLoading) => {
-  const currentWeatherDiv = document.querySelector(".container-box");
+const fetchWeatherData = async (city) => {
+  setWeatherLoader(true);
+  setForecastLoader(true);
+  setPollutionAirLoader(true);
+  resetError();
 
-  if (isLoading) {
-    currentWeatherDiv.innerHTML = `<div class="loader"></div>`;
+  const geoCode = await getUserGeoLocation(city);
+  if (!Object.keys(geoCode || {}).length) {
+    handleError("Impossible de récupérer les coordonnées GPS.");
     return;
   }
 
-  currentWeatherDiv.innerHTML = "";
-};
+  const { lat, lon } = geoCode;
 
-/**
- * Set loader for air pollution Details
- */
+  const weatherDataPromise = fetchWeatherByGeocode(lat, lon);
+  const weatherForecastDataPromise = fetchWeatherForecastByGeocode(lat, lon);
+  const airPollutionDataPromise = fetchAirPollutionByGeocode(lat, lon);
 
-const setPollutionAirLoader = (isLoading) => {
-  const currentWeatherDiv = document.querySelector(".air-quality-data");
+  const [weatherData, forecastData, airPollutionData] = await Promise.all([
+    weatherDataPromise,
+    weatherForecastDataPromise,
+    airPollutionDataPromise,
+  ]);
 
-  if (isLoading) {
-    currentWeatherDiv.innerHTML = `<div class="loader"></div>`;
-    return;
-  }
-
-  currentWeatherDiv.innerHTML = "";
+  updateUI(weatherData, forecastData, airPollutionData);
 };
 
 /**
@@ -96,41 +106,11 @@ const setupEventListeners = () => {
 };
 
 /**
- * 
-@param {string} - City name
-@returns {void}
+ * Initializes the UI components and event listeners
  */
 
-const fetchWeatherData = async (city) => {
-  console.log("passage", city);
-  setWeatherLoader(true);
-  setForecastLoader(true);
-  setPollutionAirLoader(true);
-
-  const geoCode = await getUserGeoLocation(city);
-  console.log("geocode:", geoCode);
-  if (!Object.keys(geoCode || {}).length) {
-    // affichera une erreur
-  }
-
-  const { lat, lon } = geoCode;
-
-  const weatherDataPromise = fetchWeatherByGeocode(lat, lon);
-  const weatherForecastDataPromise = fetchWeatherForecastByGeocode(lat, lon);
-  const airPollutionDataPromise = fetchAirPollutionByGeocode(lat, lon);
-
-  const [weatherData, forecastData, airPollutionData] = await Promise.all([
-    weatherDataPromise,
-    weatherForecastDataPromise,
-    airPollutionDataPromise,
-  ]);
-
-  updateUI(weatherData, forecastData, airPollutionData);
+const init = () => {
+  setupEventListeners();
 };
 
-export {
-  setupEventListeners,
-  setWeatherLoader,
-  setForecastLoader,
-  setPollutionAirLoader,
-};
+export default init;

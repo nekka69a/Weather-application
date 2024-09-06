@@ -1,3 +1,10 @@
+import { handleError } from "./ui-helpers.js";
+import {
+  setForecastLoader,
+  setPollutionAirLoader,
+  setWeatherLoader,
+} from "./ui-helpers.js";
+
 const API_BASE_URL = "http://api.openweathermap.org";
 const apikey = "01aa6eb928bd25948a3cd005133e5e48";
 
@@ -19,24 +26,28 @@ const getUserGeoLocation = async (city) => {
 
     const data = await response.json();
 
-    console.log("data: ", data);
-
     if (!data.length) {
+      handleError(
+        "Impossible de trouver la ville selectionnée. Merci de réesayer un nom de ville/pays valide !",
+      );
+      setWeatherLoader(false);
+      setForecastLoader(false);
+      setPollutionAirLoader(false);
       return null;
     }
 
     const firstElement = data[0];
     const { lat, lon } = firstElement;
 
-    console.log(lat);
-    console.log(lon);
-
     return {
       lat,
       lon,
     };
   } catch (err) {
-    console.log(err);
+    handleError(err);
+    setWeatherLoader(false);
+    setForecastLoader(false);
+    setPollutionAirLoader(false);
     return null;
   }
 };
@@ -49,7 +60,7 @@ const getUserGeoLocation = async (city) => {
  */
 
 const fetchWeatherByGeocode = async (lat, lon) => {
-  const url = `${API_BASE_URL}/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apikey}`;
+  const url = `${API_BASE_URL}/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apikey}&units=metric&lang=fr`;
 
   try {
     const response = await fetch(url);
@@ -59,10 +70,10 @@ const fetchWeatherByGeocode = async (lat, lon) => {
     }
 
     const dataWeather = await response.json();
-    console.log("weather: ", dataWeather);
     return dataWeather;
   } catch (err) {
-    console.error(`Erreur : ${err}`);
+    handleError(err);
+    setWeatherLoader(false);
     return null;
   }
 };
@@ -75,7 +86,7 @@ const fetchWeatherByGeocode = async (lat, lon) => {
  */
 
 const fetchWeatherForecastByGeocode = async (lat, lon) => {
-  const url = `${API_BASE_URL}/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apikey}`;
+  const url = `${API_BASE_URL}/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apikey}&units=metric&lang=fr`;
 
   try {
     const response = await fetch(url);
@@ -84,10 +95,10 @@ const fetchWeatherForecastByGeocode = async (lat, lon) => {
     }
 
     const dataForecast = await response.json();
-    console.log("forecast: ", dataForecast);
     return dataForecast;
   } catch (err) {
-    console.error(`Erreur : ${err}`);
+    handleError(err);
+    setForecastLoader(false);
     return null;
   }
 };
@@ -108,10 +119,10 @@ const fetchAirPollutionByGeocode = async (lat, lon) => {
       throw new Error(`Erreur ${response.statusText}`);
     }
     const dataAir = await response.json();
-    console.log("dataAir: ", dataAir);
     return dataAir;
   } catch (err) {
-    console.error(`Erreur : ${err}`);
+    handleError(err);
+    setPollutionAirLoader(false);
     return;
   }
 };
