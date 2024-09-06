@@ -6,7 +6,7 @@ Welcome to the Weather App repository! This application allows you to view curre
 
 - Display current weather conditions (temperature, feels like, humidity, wind speed, etc.).
 - Weather forecasts for the next few days.
-- Error handling and display of error messages.
+- Weather air pollution.
 
 ## Screenshots
 
