@@ -1,7 +1,7 @@
-import path from "path"
+import path from "path";
 
 // eslint-disable-next-line no-underscore-dangle
-const __dirname = path.resolve()
+const __dirname = path.resolve();
 
 const config = {
   entry: "./src/main.js",
@@ -23,5 +23,5 @@ const config = {
       },
     ],
   },
-}
-export default config
+};
+export default config;

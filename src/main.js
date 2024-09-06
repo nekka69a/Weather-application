@@ -1,11 +1,9 @@
-import { getTemperatureAndAirQualityData } from "./currentLocation.js";
-import { getForecastData } from "./forecast.js";
-import { clearCity } from "./utils.js";
+import init from "./ui.js";
 
-function main() {
-  getTemperatureAndAirQualityData();
-  getForecastData();
-  clearCity();
-}
+const startApp = async () => {
+  init();
+};
 
-main();
+// Une fois que le DOM est complètement chargé, démarre l'appli
+
+document.addEventListener("DOMContentLoaded", startApp);
