@@ -21,11 +21,11 @@ To install and run the application locally, follow these steps:
 
        git clone https://github.com/your-username/weather-app.git
 
-_italique_ Navigate to the project directory:
+_Navigate to the project directory:_
    
        cd weather-app
 
-Open the index.html file in your web browser.
+_Open the index.html file in your web browser._
 
 ## Usage
 
@@ -33,7 +33,7 @@ Open the index.html file in your web browser.
 2. Enter the name of the city for which you want to get the weather forecasts.
 3. Click the search button to display the current weather conditions and forecasts.
 
-Run the build script to bundle your project:
+_Run the build script to bundle your project:_
 
     npm run build
 
