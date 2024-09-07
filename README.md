@@ -45,5 +45,6 @@ OpenWeatherMap API (or any other weather API you are using)
 For any questions or suggestions, feel free to contact me:
 
 Email: amina693@hotmail.fr
+
 GitHub: nekka69a
 
