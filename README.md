@@ -21,7 +21,7 @@ To install and run the application locally, follow these steps:
 
        git clone https://github.com/your-username/weather-app.git
 
-_italique_Navigate to the project directory:
+_italique_ Navigate to the project directory:
    
        cd weather-app
 
