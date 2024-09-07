@@ -33,6 +33,10 @@ Open the index.html file in your web browser.
 2. Enter the name of the city for which you want to get the weather forecasts.
 3. Click the search button to display the current weather conditions and forecasts.
 
+Run the build script to bundle your project:
+
+    npm run build
+
    
 ## Technologies Used
 
