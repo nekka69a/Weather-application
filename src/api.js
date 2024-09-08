@@ -1,12 +1,12 @@
-import { handleError } from "./ui-helpers.js";
 import {
   setForecastLoader,
   setPollutionAirLoader,
   setWeatherLoader,
+  handleError,
 } from "./ui-helpers.js";
 
 const API_BASE_URL = "http://api.openweathermap.org";
-const apikey = "01aa6eb928bd25948a3cd005133e5e48";
+const apikey = "7a21ec2f5b29cffbaa7675d183d55006";
 
 /**
  * Fetch GPS cordinates from a city name
@@ -21,7 +21,7 @@ const getUserGeoLocation = async (city) => {
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Network response was not ok 
-        ${responseLocation.statusText}`);
+        ${response.statusText}`);
     }
 
     const data = await response.json();

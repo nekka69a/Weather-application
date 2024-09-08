@@ -50,6 +50,9 @@ const setPollutionAirLoader = (isLoading) => {
 
 const handleError = (message) => {
   const errorElementDiv = document.getElementById("error");
+  const city = document.querySelector(".city");
+  city.innerHTML = "Ville non trouvée";
+  city.style.color = "#9015d1";
   errorElementDiv.textContent = message;
   errorElementDiv.style.display = "block";
 };
