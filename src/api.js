@@ -6,7 +6,11 @@ import {
 } from "./ui-helpers.js";
 
 const API_BASE_URL = "http://api.openweathermap.org";
+<<<<<<< HEAD
 const apikey = "7a21ec2f5b29cffbaa7675d183d55006";
+=======
+const apikey = "api_key";
+>>>>>>> b962dbced54925cdebb9b20082bcededae0db7ff
 
 /**
  * Fetch GPS cordinates from a city name
